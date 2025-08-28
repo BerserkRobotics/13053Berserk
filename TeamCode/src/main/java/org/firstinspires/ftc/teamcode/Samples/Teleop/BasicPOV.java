@@ -58,7 +58,7 @@ public class BasicPOV extends LinearOpMode {
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
         FrontRight.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.REVERSE);
+        BackRight.setDirection(DcMotor.Direction.FORWARD);
         FrontLeft.setDirection(DcMotor.Direction.FORWARD);
         BackLeft.setDirection(DcMotor.Direction.FORWARD);
 
@@ -80,6 +80,7 @@ public class BasicPOV extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+
             double turnSpeed;
             if (gamepad1.left_bumper) {
                 turnSpeed = 1;
