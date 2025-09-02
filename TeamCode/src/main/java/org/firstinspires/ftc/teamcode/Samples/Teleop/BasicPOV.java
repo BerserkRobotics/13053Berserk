@@ -57,9 +57,9 @@ public class BasicPOV extends LinearOpMode {
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        FrontRight.setDirection(DcMotor.Direction.REVERSE);
-        BackRight.setDirection(DcMotor.Direction.REVERSE);
-        FrontLeft.setDirection(DcMotor.Direction.FORWARD);
+        FrontRight.setDirection(DcMotor.Direction.FORWARD);
+        BackRight.setDirection(DcMotor.Direction.FORWARD);
+        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
 
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -81,22 +81,14 @@ public class BasicPOV extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            double turnSpeed;
-            if (gamepad1.left_bumper) {
-                turnSpeed = -1;
-            } else if (gamepad1.right_bumper) {
-                turnSpeed = 1;
-            } else {
-                turnSpeed = 0;
-            }
             double moveSpeed   = -gamepad1.left_stick_y;
             double strafeSpeed = gamepad1.left_stick_x;
             double speedSetter = 1;
 
-            front_left_power  = (moveSpeed + turnSpeed + strafeSpeed) * speedSetter;
-            front_right_power = (moveSpeed - turnSpeed - strafeSpeed) * speedSetter;
-            back_left_power   = (moveSpeed + turnSpeed - strafeSpeed) * speedSetter;
-            back_right_power  = (moveSpeed - turnSpeed + strafeSpeed) * speedSetter;
+            front_left_power  = (moveSpeed + gamepad1.right_stick_x + strafeSpeed) * speedSetter;
+            front_right_power = (moveSpeed - gamepad1.right_stick_x - strafeSpeed) * speedSetter;
+            back_left_power   = (moveSpeed + gamepad1.right_stick_x - strafeSpeed) * speedSetter;
+            back_right_power  = (moveSpeed - gamepad1.right_stick_x + strafeSpeed) * speedSetter;
 
             FrontRight.setPower(front_right_power);
             FrontLeft.setPower(front_left_power);
