@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 
 @Config
 @Autonomous(name = "RoadrunnerTest", group = "Autonomous")
@@ -16,24 +17,33 @@ public class RoadrunnerTest extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
+            //MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+            // Starting pose
+            Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(0));
+            MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
-        // Starting pose
-        Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
+            waitForStart();
 
-        // Build Road Runner Core action
-        Action trajectory = drive.actionBuilder(initialPose)
-                .splineTo(new Vector2d(-43.29, 41.16), Math.toRadians(177.70))
-                .splineTo(new Vector2d(-53.71, -42.22), Math.toRadians(-88.19))
-                .splineTo(new Vector2d(49.03, -40.52), Math.toRadians(0.95))
-                .splineTo(new Vector2d(48.60, 10.32), Math.toRadians(90.48))
-                .build();
+            if (opModeIsActive()) {
+                Actions.runBlocking(
+                        drive.actionBuilder(initialPose)
+                                .lineToX(600)
+                                .lineToX(0)
+                                .build());
+            }
+
+            /* Build Road Runner Core action
+            Action trajectory = drive.actionBuilder(initialPose)
+                    .lineToX(50000)
+                    .build();
 
 
-        waitForStart();
+            waitForStart();
 
-        if (opModeIsActive()) {
             Actions.runBlocking(trajectory);
+             */
+
         }
     }
 }
