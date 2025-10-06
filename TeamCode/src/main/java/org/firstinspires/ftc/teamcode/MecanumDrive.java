@@ -73,7 +73,7 @@ public final class MecanumDrive {
         public double kA = 0.0000000001;
 
         // path profile parameters (in inches)
-        public double maxWheelVel = 61.7;
+        public double maxWheelVel = 66.92;
         public double minProfileAccel = -40;
         public double maxProfileAccel = 45;
 
@@ -458,14 +458,14 @@ public final class MecanumDrive {
     public PoseVelocity2d updatePoseEstimate() {
         PoseVelocity2d vel = localizer.update();
         poseHistory.add(localizer.getPose());
-        
+
         while (poseHistory.size() > 100) {
             poseHistory.removeFirst();
         }
 
         estimatedPoseWriter.write(new PoseMessage(localizer.getPose()));
-        
-        
+
+
         return vel;
     }
 
@@ -492,9 +492,8 @@ public final class MecanumDrive {
                 FollowTrajectoryAction::new,
                 new TrajectoryBuilderParams(
                         1e-6,
-                        new ProfileParams(
-                                0.25, 0.1, 1e-2
-                        )
+                        new ProfileParams(30.0, 30.0, 1e-2)
+
                 ),
                 beginPose, 0.0,
                 defaultTurnConstraints,

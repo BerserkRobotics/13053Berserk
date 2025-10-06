@@ -28,7 +28,7 @@ public class RoadrunnerTest extends LinearOpMode {
             if (opModeIsActive()) {
                 Actions.runBlocking(
                         drive.actionBuilder(initialPose)
-                                .lineToX(600)
+                                .lineToX(100)
                                 .lineToX(0)
                                 .build());
             }
