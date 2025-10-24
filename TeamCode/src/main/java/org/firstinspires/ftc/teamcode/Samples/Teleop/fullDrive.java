@@ -32,14 +32,22 @@ package org.firstinspires.ftc.teamcode.Samples.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
-@TeleOp(name = "BasicPOV")
+@TeleOp(name = "fullPOV")
 public class fullDrive extends LinearOpMode {
     private DcMotor FrontLeft;
     private DcMotor FrontRight;
     private DcMotor BackLeft;
     private DcMotor BackRight;
+
+    private DcMotor IntakeRoller;
+    private DcMotor ROuttakeSpinner;
+    private DcMotor LOuttakeSpinner;
+    private Servo BSpinner;
+    private Servo TSpinner;
 
 
     @Override
@@ -53,6 +61,14 @@ public class fullDrive extends LinearOpMode {
         BackRight = hardwareMap.get(DcMotor.class, "rightBack");
         FrontLeft = hardwareMap.get(DcMotor.class, "leftFront");
         BackLeft = hardwareMap.get(DcMotor.class, "leftBack");
+
+        IntakeRoller = hardwareMap.get(DcMotor.class, "IntakeRoller");
+        ROuttakeSpinner = hardwareMap.get(DcMotor.class, "ROuttakeSpinner");
+        LOuttakeSpinner = hardwareMap.get(DcMotor.class, "LOuttakeSpinner");
+
+        BSpinner = hardwareMap.get(Servo.class, "BSpinner");
+        TSpinner = hardwareMap.get(Servo.class, "TSpinner");
+
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
@@ -61,10 +77,19 @@ public class fullDrive extends LinearOpMode {
         FrontLeft.setDirection(DcMotor.Direction.FORWARD);
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
 
+        IntakeRoller.setDirection(DcMotor.Direction.FORWARD);
+        ROuttakeSpinner.setDirection(DcMotor.Direction.FORWARD);
+        LOuttakeSpinner.setDirection(DcMotor.Direction.FORWARD);
+
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        IntakeRoller.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ROuttakeSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LOuttakeSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
         double front_left_power  = 0;
         double front_right_power = 0;
