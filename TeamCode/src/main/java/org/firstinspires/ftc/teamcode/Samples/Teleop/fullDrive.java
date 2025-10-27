@@ -32,11 +32,10 @@ package org.firstinspires.ftc.teamcode.Samples.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@TeleOp(name = "fullPOV")
+@TeleOp(name = "fullDrive")
 public class fullDrive extends LinearOpMode {
     private DcMotor FrontLeft;
     private DcMotor FrontRight;
@@ -48,6 +47,19 @@ public class fullDrive extends LinearOpMode {
     private DcMotor LOuttakeSpinner;
     private Servo BSpinner;
     private Servo TSpinner;
+
+
+    //INTAKE POSITIONS
+    //TODO: edit these
+    double BSpinnerIn = 0;
+    double BSpinnerOut = 1;
+    double TSpinnerIn = 0;
+    double TSpinnerOut = 1;
+
+    //OUTTAKE POSITIONS
+    //TODO: edit these
+    int ROuttakeSpinnerTicks = 0;
+    int LOuttakeSpinnerTicks = 0;
 
 
     @Override
@@ -77,6 +89,7 @@ public class fullDrive extends LinearOpMode {
         FrontLeft.setDirection(DcMotor.Direction.FORWARD);
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
 
+        //TODO: find motor directions
         IntakeRoller.setDirection(DcMotor.Direction.FORWARD);
         ROuttakeSpinner.setDirection(DcMotor.Direction.FORWARD);
         LOuttakeSpinner.setDirection(DcMotor.Direction.FORWARD);
@@ -95,6 +108,10 @@ public class fullDrive extends LinearOpMode {
         double front_right_power = 0;
         double back_left_power   = 0;
         double back_right_power  = 0;
+
+        IntakeRoller.setPower(0);
+        LOuttakeSpinner.setPower(0);
+        ROuttakeSpinner.setPower(0);
 
 
         // Tell the driver that initialization is complete.
@@ -118,6 +135,18 @@ public class fullDrive extends LinearOpMode {
             FrontLeft.setPower(front_left_power);
             BackRight.setPower(back_right_power);
             BackLeft.setPower(back_left_power);
+
+
+            // TODO: edit power
+            // Intake arm up and down
+            if (gamepad2.dpad_up) {
+                IntakeRoller.setPower(0);
+            } else if (!gamepad2.dpad_down) {
+                IntakeRoller.setPower(0);
+            } else {
+                IntakeRoller.setPower(0);
+            }
+
 
 
             telemetry.addData("Status", "Running");
