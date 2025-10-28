@@ -31,8 +31,8 @@ package org.firstinspires.ftc.teamcode.Samples.Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 
 @TeleOp(name = "fullDrive")
@@ -45,21 +45,10 @@ public class fullDrive extends LinearOpMode {
     private DcMotor IntakeRoller;
     private DcMotor ROuttakeSpinner;
     private DcMotor LOuttakeSpinner;
-    private Servo BSpinner;
-    private Servo TSpinner;
+    private CRServo BSpinner;
+    private CRServo TSpinner;
 
-
-    //INTAKE POSITIONS
-    //TODO: edit these
-    double BSpinnerIn = 0;
-    double BSpinnerOut = 1;
-    double TSpinnerIn = 0;
-    double TSpinnerOut = 1;
-
-    //OUTTAKE POSITIONS
-    //TODO: edit these
-    int ROuttakeSpinnerTicks = 0;
-    int LOuttakeSpinnerTicks = 0;
+    double OuttakeSpeed = 0.5;
 
 
     @Override
@@ -78,8 +67,8 @@ public class fullDrive extends LinearOpMode {
         ROuttakeSpinner = hardwareMap.get(DcMotor.class, "ROuttakeSpinner");
         LOuttakeSpinner = hardwareMap.get(DcMotor.class, "LOuttakeSpinner");
 
-        BSpinner = hardwareMap.get(Servo.class, "BSpinner");
-        TSpinner = hardwareMap.get(Servo.class, "TSpinner");
+        BSpinner = hardwareMap.get(CRServo.class, "BSpinner");
+        TSpinner = hardwareMap.get(CRServo.class, "TSpinner");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
@@ -136,20 +125,46 @@ public class fullDrive extends LinearOpMode {
             BackRight.setPower(back_right_power);
             BackLeft.setPower(back_left_power);
 
+            OuttakeSpeed += 0.05*(gamepad2.right_stick_y);
+            if (OuttakeSpeed > 1) {
+                OuttakeSpeed = 1;
+            } else if (OuttakeSpeed < 0.25) {
+                OuttakeSpeed = 0.25;
+            }
 
-            // TODO: edit power
-            // Intake arm up and down
+            if (gamepad2.a) {
+                BSpinner.setPower(-1);
+                TSpinner.setPower(-1);
+            } else if (gamepad2.y) {
+                BSpinner.setPower(1);
+                TSpinner.setPower(1);
+            } else {
+                BSpinner.setPower(0);
+                TSpinner.setPower(0);
+            }
+
             if (gamepad2.dpad_up) {
-                IntakeRoller.setPower(0);
-            } else if (!gamepad2.dpad_down) {
-                IntakeRoller.setPower(0);
+                IntakeRoller.setPower(1);
+            } else if (gamepad2.dpad_down) {
+                IntakeRoller.setPower(-1);
             } else {
                 IntakeRoller.setPower(0);
             }
 
+            if (gamepad2.dpad_left) {
+                ROuttakeSpinner.setPower(-OuttakeSpeed);
+                LOuttakeSpinner.setPower(-OuttakeSpeed);
+            } else if (gamepad2.dpad_right) {
+                ROuttakeSpinner.setPower(OuttakeSpeed);
+                LOuttakeSpinner.setPower(OuttakeSpeed);
+            } else {
+                ROuttakeSpinner.setPower(0);
+                LOuttakeSpinner.setPower(0);
+            }
 
 
             telemetry.addData("Status", "Running");
+            telemetry.addData("OuttakeSpeed: ", OuttakeSpeed);
             telemetry.update();
         }
     }
