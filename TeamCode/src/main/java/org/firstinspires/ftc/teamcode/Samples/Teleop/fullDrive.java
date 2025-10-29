@@ -38,7 +38,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 // BASIC DRIVE W/ INTAKE & OUTTAKE
 
-@TeleOp(name = "fullDrive")
+@TeleOp(name = "fullDrive", group = "main")
 public class fullDrive extends LinearOpMode {
     private DcMotor FrontLeft;
     private DcMotor FrontRight;
