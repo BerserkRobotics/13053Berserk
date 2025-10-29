@@ -33,6 +33,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
 @TeleOp(name = "fullDrive")
@@ -80,8 +82,11 @@ public class fullDrive extends LinearOpMode {
 
         //TODO: find motor directions
         IntakeRoller.setDirection(DcMotor.Direction.FORWARD);
-        ROuttakeSpinner.setDirection(DcMotor.Direction.FORWARD);
+        ROuttakeSpinner.setDirection(DcMotor.Direction.REVERSE);
         LOuttakeSpinner.setDirection(DcMotor.Direction.FORWARD);
+
+        BSpinner.setDirection(CRServo.Direction.REVERSE);
+        TSpinner.setDirection(CRServo.Direction.FORWARD);
 
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -101,6 +106,8 @@ public class fullDrive extends LinearOpMode {
         IntakeRoller.setPower(0);
         LOuttakeSpinner.setPower(0);
         ROuttakeSpinner.setPower(0);
+        BSpinner.setPower(0);
+        TSpinner.setPower(0);
 
 
         // Tell the driver that initialization is complete.
@@ -132,12 +139,12 @@ public class fullDrive extends LinearOpMode {
                 OuttakeSpeed = 0.25;
             }
 
-            if (gamepad2.a) {
-                BSpinner.setPower(-1);
-                TSpinner.setPower(-1);
-            } else if (gamepad2.y) {
+            if (gamepad2.y) {
                 BSpinner.setPower(1);
                 TSpinner.setPower(1);
+            } else if (gamepad2.a) {
+                BSpinner.setPower(-1);
+                TSpinner.setPower(-1);
             } else {
                 BSpinner.setPower(0);
                 TSpinner.setPower(0);
@@ -164,7 +171,7 @@ public class fullDrive extends LinearOpMode {
 
 
             telemetry.addData("Status", "Running");
-            telemetry.addData("OuttakeSpeed: ", OuttakeSpeed);
+            telemetry.addData("OuttakeSpeed", OuttakeSpeed);
             telemetry.update();
         }
     }
