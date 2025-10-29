@@ -23,8 +23,8 @@ public class forwardRight extends LinearOpMode {
         FrontRight = hardwareMap.get(DcMotor.class, "FrontRight");
 
         FrontRight.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.FORWARD);
-        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
+        BackRight.setDirection(DcMotor.Direction.REVERSE);
+        FrontLeft.setDirection(DcMotor.Direction.FORWARD);
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
 
         BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -46,10 +46,10 @@ public class forwardRight extends LinearOpMode {
         if (opModeIsActive()) {
 
             //drive forward
-            BackLeft.setTargetPosition(1000);
-            BackRight.setTargetPosition(1000);
-            FrontLeft.setTargetPosition(1000);
-            FrontRight.setTargetPosition(1000);
+            BackLeft.setTargetPosition(500);
+            BackRight.setTargetPosition(500);
+            FrontLeft.setTargetPosition(500);
+            FrontRight.setTargetPosition(500);
             BackLeft.setPower(0.5);
             BackRight.setPower(0.5);
             FrontLeft.setPower(0.5);
@@ -58,16 +58,17 @@ public class forwardRight extends LinearOpMode {
             BackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             FrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             FrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            sleep(1000);
 
             //strafe right
             BackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             BackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             FrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             FrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            BackLeft.setTargetPosition(1000);
-            BackRight.setTargetPosition(-1000);
-            FrontLeft.setTargetPosition(1000);
-            FrontRight.setTargetPosition(-1000);
+            BackLeft.setTargetPosition(500);
+            BackRight.setTargetPosition(-500);
+            FrontLeft.setTargetPosition(500);
+            FrontRight.setTargetPosition(-500);
             BackLeft.setPower(0.5);
             BackRight.setPower(0.5);
             FrontLeft.setPower(0.5);
