@@ -36,7 +36,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 // BASIC DRIVE
 
-@TeleOp(name = "BasicPOV")
+@TeleOp(name = "BasicPOV" , group = "z")
 public class BasicPOV extends LinearOpMode {
     private DcMotor FrontLeft;
     private DcMotor FrontRight;

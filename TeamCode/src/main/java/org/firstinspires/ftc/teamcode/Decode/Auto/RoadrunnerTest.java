@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 
 @Config
-@Autonomous(name = "RoadrunnerTest", group = "Autonomous")
+@Autonomous(name = "RoadrunnerTest", group = "z")
 public class RoadrunnerTest extends LinearOpMode {
 
     @Override

@@ -38,7 +38,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 // BASIC DRIVE W/ INTAKE & OUTTAKE
 
-@TeleOp(name = "fullDrive", group = "main")
+@TeleOp(name = "fullDrive")
 public class fullDrive extends LinearOpMode {
     private DcMotor FrontLeft;
     private DcMotor FrontRight;
@@ -123,8 +123,8 @@ public class fullDrive extends LinearOpMode {
             double strafeSpeed = gamepad1.left_stick_x;
             double speedSetter = 1;
 
-            front_right_power  = (moveSpeed - gamepad1.right_stick_x - strafeSpeed) * speedSetter;
-            front_left_power   = (moveSpeed - gamepad1.right_stick_x + strafeSpeed) * speedSetter;
+            front_right_power  = (moveSpeed - gamepad1.right_stick_x + strafeSpeed) * speedSetter;
+            front_left_power   = (moveSpeed - gamepad1.right_stick_x - strafeSpeed) * speedSetter;
             back_left_power    = (moveSpeed + gamepad1.right_stick_x - strafeSpeed) * speedSetter;
             back_right_power   = (moveSpeed + gamepad1.right_stick_x + strafeSpeed) * speedSetter;
 
@@ -133,8 +133,8 @@ public class fullDrive extends LinearOpMode {
             BackRight.setPower(back_right_power);
             BackLeft.setPower(back_left_power);
 
-            OuttakeSpeed += 0.05*(gamepad2.right_stick_y);
-            if (OuttakeSpeed > 1) {
+            OuttakeSpeed += 0.000005*(-gamepad2.right_stick_y);
+            if (OuttakeSpeed >= 1) {
                 OuttakeSpeed = 1;
             } else if (OuttakeSpeed < 0.25) {
                 OuttakeSpeed = 0.25;
@@ -160,14 +160,11 @@ public class fullDrive extends LinearOpMode {
             }
 
             if (gamepad2.dpad_left) {
-                ROuttakeSpinner.setPower(-OuttakeSpeed);
-                LOuttakeSpinner.setPower(-OuttakeSpeed);
+                ROuttakeSpinner.setPower(0);
+                LOuttakeSpinner.setPower(0);
             } else if (gamepad2.dpad_right) {
                 ROuttakeSpinner.setPower(OuttakeSpeed);
                 LOuttakeSpinner.setPower(OuttakeSpeed);
-            } else {
-                ROuttakeSpinner.setPower(0);
-                LOuttakeSpinner.setPower(0);
             }
 
 

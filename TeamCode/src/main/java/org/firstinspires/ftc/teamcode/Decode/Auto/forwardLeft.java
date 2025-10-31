@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@Autonomous(name = "forwardRight", preselectTeleOp = "fullDrive")
-public class forwardRight extends LinearOpMode {
+@Autonomous(name = "forwardLeft", preselectTeleOp = "fullDrive")
+public class forwardLeft extends LinearOpMode {
 
     private DcMotor FrontLeft;
     private DcMotor FrontRight;
@@ -43,10 +43,10 @@ public class forwardRight extends LinearOpMode {
             FrontLeft.setPower(-0.5);
             FrontRight.setPower(-0.5);
             sleep(1000);
-            BackLeft.setPower(0.5);
-            BackRight.setPower(-0.5);
-            FrontLeft.setPower(0.5);
-            FrontRight.setPower(-0.5);
+            BackLeft.setPower(-0.5);
+            BackRight.setPower(0.5);
+            FrontLeft.setPower(-0.5);
+            FrontRight.setPower(0.5);
             sleep(1000);
 
         }

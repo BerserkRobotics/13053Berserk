@@ -18,7 +18,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
-@Autonomous(name = "roadrunnerTest2", group = "Autonomous")
+@Autonomous(name = "roadrunnerTest2", group = "z")
 public class roadrunnerTest2 extends LinearOpMode {
 
     @Override

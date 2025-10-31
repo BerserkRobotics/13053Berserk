@@ -35,7 +35,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 //TODO: CODE FOR SCRIMMAGE BOT!!!!
 
-@TeleOp(name = "scrimmageDrive")
+@TeleOp(name = "scrimmageDrive", group = "z")
 public class scrimmageDrive extends LinearOpMode {
     private DcMotor FrontLeft;
     private DcMotor FrontRight;
