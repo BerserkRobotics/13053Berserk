@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 
+//https://rr.brott.dev/docs/v1-0/guides/centerstage-auto/
+
 @Config
 @Autonomous(name = "RoadrunnerTest", group = "z")
 public class RoadrunnerTest extends LinearOpMode {
