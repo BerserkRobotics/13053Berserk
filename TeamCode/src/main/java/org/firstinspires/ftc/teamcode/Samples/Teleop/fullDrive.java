@@ -81,7 +81,6 @@ public class fullDrive extends LinearOpMode {
         FrontLeft.setDirection(DcMotor.Direction.FORWARD);
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
 
-        //TODO: find motor directions
         IntakeRoller.setDirection(DcMotor.Direction.FORWARD);
         ROuttakeSpinner.setDirection(DcMotor.Direction.REVERSE);
         LOuttakeSpinner.setDirection(DcMotor.Direction.FORWARD);
