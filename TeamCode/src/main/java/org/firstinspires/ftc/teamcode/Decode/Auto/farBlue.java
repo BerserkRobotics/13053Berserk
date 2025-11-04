@@ -17,7 +17,9 @@ import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
+//https://rr.brott.dev/docs/v1-0/guides/centerstage-auto/
 
+@Config
 @Autonomous(name = "farBlue", group = "blue", preselectTeleOp = "fullDrive")
 public class farBlue extends LinearOpMode {
 
@@ -76,6 +78,10 @@ public class farBlue extends LinearOpMode {
         ROuttakeSpinner.setPower(0);
         BSpinner.setPower(0);
         TSpinner.setPower(0);
+
+        // instantiate your MecanumDrive at a particular pose.
+        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(90));
+        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
 
         waitForStart();
