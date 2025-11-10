@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Robot {
 
-    public class Drive {
+    public static class Drive {
         private DcMotor FrontLeft;
         private DcMotor FrontRight;
         private DcMotor BackLeft;
@@ -29,7 +29,7 @@ public class Robot {
     }
 
     //intake roller
-    public class IntakeRoll {
+    public static class IntakeRoll {
         private DcMotor IntakeRoller;
 
         public IntakeRoll(HardwareMap hardwareMap) {
@@ -40,7 +40,7 @@ public class Robot {
     }
 
     //outtake
-    public class Outtake {
+    public static class Outtake {
         private DcMotor ROuttakeSpinner;
         private DcMotor LOuttakeSpinner;
 
@@ -55,7 +55,7 @@ public class Robot {
     }
 
     //intake spin
-    public class IntakeSpin {
+    public static class IntakeSpin {
         private CRServo BSpinner;
         private CRServo TSpinner;
 
