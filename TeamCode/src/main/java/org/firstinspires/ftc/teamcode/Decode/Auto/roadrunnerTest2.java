@@ -35,6 +35,7 @@ public class roadrunnerTest2 extends LinearOpMode {
         Robot.Outtake outtake = new Robot.Outtake(hardwareMap);
 
 
+        //TODO: this is just a sample; change name of tab, paths
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
                 .lineToYSplineHeading(33, Math.toRadians(0))
                 .waitSeconds(2)
