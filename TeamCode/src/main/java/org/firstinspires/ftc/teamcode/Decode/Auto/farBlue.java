@@ -81,9 +81,6 @@ public class farBlue extends LinearOpMode {
         TSpinner.setPower(0);
 
         // instantiate your MecanumDrive at a particular pose.
-        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(90));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
-
 
         waitForStart();
         if (opModeIsActive()) {
