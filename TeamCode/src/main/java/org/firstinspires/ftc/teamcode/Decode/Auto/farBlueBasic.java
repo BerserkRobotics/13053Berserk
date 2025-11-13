@@ -1,28 +1,19 @@
 package org.firstinspires.ftc.teamcode.Decode.Auto;
 
-import androidx.annotation.NonNull;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.teamcode.MecanumDrive;
-import org.firstinspires.ftc.teamcode.Robot;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.ftc.Actions;
+
+import org.firstinspires.ftc.teamcode.Robot;
 
 //https://rr.brott.dev/docs/v1-0/guides/centerstage-auto/
 
 @Config
-@Autonomous(name = "farBlue", group = "blue", preselectTeleOp = "fullDrive")
-public class farBlue extends LinearOpMode {
+@Autonomous(name = "farBlueBasic", group = "blue", preselectTeleOp = "fullDrive")
+public class farBlueBasic extends LinearOpMode {
 
     private DcMotor FrontLeft;
     private DcMotor FrontRight;
@@ -70,6 +61,10 @@ public class farBlue extends LinearOpMode {
         ROuttakeSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LOuttakeSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        IntakeRoller.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        ROuttakeSpinner.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LOuttakeSpinner.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         BackLeft.setPower(0);
         BackRight.setPower(0);
         FrontLeft.setPower(0);
@@ -85,18 +80,31 @@ public class farBlue extends LinearOpMode {
         waitForStart();
         if (opModeIsActive()) {
 
-
+            // move off wall slightly
+            // turn left slightly
+            // engage middle intake
+            // engage outtake
 
             BackLeft.setPower(-0.5);
             BackRight.setPower(-0.5);
             FrontLeft.setPower(-0.5);
             FrontRight.setPower(-0.5);
-            sleep(1000);
+            sleep(500);
+
             BackLeft.setPower(0.5);
-            BackRight.setPower(-0.5);
-            FrontLeft.setPower(0.5);
-            FrontRight.setPower(-0.5);
+            BackRight.setPower(0);
+            FrontLeft.setPower(0);
+            FrontRight.setPower(0.5);
+            sleep(500);
+
+
+            ROuttakeSpinner.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LOuttakeSpinner.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            ROuttakeSpinner.setPower(.5);
+            LOuttakeSpinner.setPower(.5);
             sleep(1000);
+
+
 
         }
     }

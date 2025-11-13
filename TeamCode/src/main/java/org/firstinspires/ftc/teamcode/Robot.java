@@ -6,28 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Robot {
 
-    public static class Drive {
-        private DcMotor FrontLeft;
-        private DcMotor FrontRight;
-        private DcMotor BackLeft;
-        private DcMotor BackRight;
-
-        public Drive(HardwareMap hardwareMap) {
-            FrontRight = hardwareMap.get(DcMotor.class, "rightFront");
-            BackRight = hardwareMap.get(DcMotor.class, "rightBack");
-            FrontLeft = hardwareMap.get(DcMotor.class, "leftFront");
-            BackLeft = hardwareMap.get(DcMotor.class, "leftBack");
-            FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            FrontRight.setDirection(DcMotor.Direction.FORWARD);
-            BackRight.setDirection(DcMotor.Direction.REVERSE);
-            FrontLeft.setDirection(DcMotor.Direction.FORWARD);
-            BackLeft.setDirection(DcMotor.Direction.REVERSE);
-        }
-    }
-
     //intake roller
     public static class IntakeRoll {
         private DcMotor IntakeRoller;

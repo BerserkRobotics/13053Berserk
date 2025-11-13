@@ -23,7 +23,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Autonomous(name = "roadrunnerTest2", group = "test")
 public class roadrunnerTest2 extends LinearOpMode {
 
-
     @Override
     public void runOpMode() {
         //TODO: use meepmeep to determine initial position
