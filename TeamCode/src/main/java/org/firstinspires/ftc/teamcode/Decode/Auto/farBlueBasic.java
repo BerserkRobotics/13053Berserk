@@ -89,7 +89,7 @@ public class farBlueBasic extends LinearOpMode {
             BackRight.setPower(-0.5);
             FrontLeft.setPower(-0.5);
             FrontRight.setPower(-0.5);
-            sleep(500);
+            sleep(200);
 
             BackLeft.setPower(0.5);
             BackRight.setPower(0);
@@ -97,6 +97,9 @@ public class farBlueBasic extends LinearOpMode {
             FrontRight.setPower(0.5);
             sleep(500);
 
+            TSpinner.setPower(1);
+            BSpinner.setPower(1);
+            sleep(1000);
 
             ROuttakeSpinner.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LOuttakeSpinner.setMode(DcMotor.RunMode.RUN_TO_POSITION);

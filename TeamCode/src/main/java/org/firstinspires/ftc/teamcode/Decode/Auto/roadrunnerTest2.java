@@ -29,11 +29,6 @@ public class roadrunnerTest2 extends LinearOpMode {
         Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
-        Robot.IntakeRoll intakeRoll = new Robot.IntakeRoll(hardwareMap);
-        Robot.IntakeSpin intakeSpin = new Robot.IntakeSpin(hardwareMap);
-        Robot.Outtake outtake = new Robot.Outtake(hardwareMap);
-
-
         //TODO: this is just a sample; change name of tab, paths
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
                 .lineToYSplineHeading(33, Math.toRadians(0))
