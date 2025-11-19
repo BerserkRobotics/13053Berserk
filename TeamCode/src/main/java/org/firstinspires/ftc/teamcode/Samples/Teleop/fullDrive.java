@@ -48,8 +48,10 @@ public class fullDrive extends LinearOpMode {
     private DcMotor IntakeRoller;
     private DcMotor ROuttakeSpinner;
     private DcMotor LOuttakeSpinner;
+    /*
     private CRServo BSpinner;
     private CRServo TSpinner;
+     */
 
     double OuttakeSpeed = 0.5;
 
@@ -70,8 +72,10 @@ public class fullDrive extends LinearOpMode {
         ROuttakeSpinner = hardwareMap.get(DcMotor.class, "ROuttakeSpinner");
         LOuttakeSpinner = hardwareMap.get(DcMotor.class, "LOuttakeSpinner");
 
+        /*
         BSpinner = hardwareMap.get(CRServo.class, "BSpinner");
         TSpinner = hardwareMap.get(CRServo.class, "TSpinner");
+         */
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
@@ -85,8 +89,10 @@ public class fullDrive extends LinearOpMode {
         ROuttakeSpinner.setDirection(DcMotor.Direction.REVERSE);
         LOuttakeSpinner.setDirection(DcMotor.Direction.FORWARD);
 
+        /*
         BSpinner.setDirection(CRServo.Direction.REVERSE);
         TSpinner.setDirection(CRServo.Direction.FORWARD);
+         */
 
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -106,8 +112,10 @@ public class fullDrive extends LinearOpMode {
         IntakeRoller.setPower(0);
         LOuttakeSpinner.setPower(0);
         ROuttakeSpinner.setPower(0);
+        /*
         BSpinner.setPower(0);
         TSpinner.setPower(0);
+        */
 
 
         // Tell the driver that initialization is complete.
@@ -139,6 +147,7 @@ public class fullDrive extends LinearOpMode {
                 OuttakeSpeed = 0.25;
             }
 
+            /*
             if (gamepad2.y) {
                 BSpinner.setPower(1);
                 TSpinner.setPower(1);
@@ -149,6 +158,8 @@ public class fullDrive extends LinearOpMode {
                 BSpinner.setPower(0);
                 TSpinner.setPower(0);
             }
+
+             */
 
             if (gamepad2.dpad_up) {
                 IntakeRoller.setPower(1);
