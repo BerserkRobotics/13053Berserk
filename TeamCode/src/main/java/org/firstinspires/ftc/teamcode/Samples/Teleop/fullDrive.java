@@ -52,6 +52,7 @@ public class fullDrive extends LinearOpMode {
     private CRServo BSpinner;
     private CRServo TSpinner;
      */
+    private CRServo IntakeSpinner;
 
     double OuttakeSpeed = 0.5;
 
@@ -76,6 +77,7 @@ public class fullDrive extends LinearOpMode {
         BSpinner = hardwareMap.get(CRServo.class, "BSpinner");
         TSpinner = hardwareMap.get(CRServo.class, "TSpinner");
          */
+        IntakeSpinner = hardwareMap.get(CRServo.class, "IntakeSpinner");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
@@ -93,6 +95,7 @@ public class fullDrive extends LinearOpMode {
         BSpinner.setDirection(CRServo.Direction.REVERSE);
         TSpinner.setDirection(CRServo.Direction.FORWARD);
          */
+        IntakeSpinner.setDirection(CRServo.Direction.FORWARD);
 
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -116,6 +119,7 @@ public class fullDrive extends LinearOpMode {
         BSpinner.setPower(0);
         TSpinner.setPower(0);
         */
+        IntakeSpinner.setPower(0);
 
 
         // Tell the driver that initialization is complete.
@@ -158,8 +162,15 @@ public class fullDrive extends LinearOpMode {
                 BSpinner.setPower(0);
                 TSpinner.setPower(0);
             }
-
              */
+
+            if (gamepad2.y) {
+                IntakeSpinner.setPower(1);
+            } else if (gamepad2.a) {
+                IntakeSpinner.setPower(-1);
+            } else {
+                IntakeSpinner.setPower(0);
+            }
 
             if (gamepad2.dpad_up) {
                 IntakeRoller.setPower(1);

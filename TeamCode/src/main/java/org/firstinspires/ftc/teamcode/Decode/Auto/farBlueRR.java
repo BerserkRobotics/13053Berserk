@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.Robot;
 
 @Config
-@Autonomous(name = "roadrunnerTest2", group = "test")
+@Autonomous(name = "roadrunnerTest2", group = "test", preselectTeleOp = "fullDrive")
 public class farBlueRR extends LinearOpMode {
 
     private DcMotor IntakeRoller;

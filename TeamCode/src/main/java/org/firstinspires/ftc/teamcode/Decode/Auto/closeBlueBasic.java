@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode.Decode.Auto;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 //https://rr.brott.dev/docs/v1-0/guides/centerstage-auto/
 
@@ -23,6 +25,7 @@ public class closeBlueBasic extends LinearOpMode {
     private CRServo BSpinner;
     private CRServo TSpinner;
      */
+    private CRServo IntakeSpinner;
 
     @Override
     public void runOpMode() {
@@ -39,6 +42,8 @@ public class closeBlueBasic extends LinearOpMode {
         BSpinner = hardwareMap.get(CRServo.class, "BSpinner");
         TSpinner = hardwareMap.get(CRServo.class, "TSpinner");
          */
+        IntakeSpinner = hardwareMap.get(CRServo.class, "IntakeSpinner");
+
 
         FrontRight.setDirection(DcMotor.Direction.FORWARD);
         BackRight.setDirection(DcMotor.Direction.REVERSE);
@@ -53,6 +58,7 @@ public class closeBlueBasic extends LinearOpMode {
         BSpinner.setDirection(CRServo.Direction.REVERSE);
         TSpinner.setDirection(CRServo.Direction.FORWARD);
          */
+        IntakeSpinner.setDirection(CRServo.Direction.FORWARD);
 
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -63,9 +69,6 @@ public class closeBlueBasic extends LinearOpMode {
         ROuttakeSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LOuttakeSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        IntakeRoller.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        ROuttakeSpinner.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LOuttakeSpinner.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         BackLeft.setPower(0);
         BackRight.setPower(0);
@@ -78,46 +81,25 @@ public class closeBlueBasic extends LinearOpMode {
         BSpinner.setPower(0);
         TSpinner.setPower(0);
          */
+        IntakeSpinner.setPower(0);
 
         // instantiate your MecanumDrive at a particular pose.
 
         waitForStart();
         if (opModeIsActive()) {
 
-            // move off wall slightly
-            // turn left slightly
+            // move back from goal wall slightly (forward)
             // engage outtake
 
-            BackLeft.setPower(-0.5);
-            BackRight.setPower(-0.5);
-            FrontLeft.setPower(-0.5);
-            FrontRight.setPower(-0.5);
-            sleep(200);
-
             BackLeft.setPower(0.5);
-            BackRight.setPower(0);
-            FrontLeft.setPower(0);
+            BackRight.setPower(0.5);
+            FrontLeft.setPower(0.5);
             FrontRight.setPower(0.5);
-            sleep(500);
+            sleep(300);
 
-            /*
-            TSpinner.setPower(1);
-            BSpinner.setPower(1);
-            sleep(1000);
-             */
 
-            ROuttakeSpinner.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LOuttakeSpinner.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            ROuttakeSpinner.setPower(.5);
-            LOuttakeSpinner.setPower(.5);
-            sleep(1000);
+            IntakeSpinner.setPower(1);
 
-            IntakeRoller.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            IntakeRoller.setPower(.5);
-            sleep(200);
-
-            ROuttakeSpinner.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LOuttakeSpinner.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             ROuttakeSpinner.setPower(.5);
             LOuttakeSpinner.setPower(.5);
             sleep(1000);
