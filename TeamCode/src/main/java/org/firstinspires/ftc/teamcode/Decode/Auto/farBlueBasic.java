@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.Robot;
+//import org.firstinspires.ftc.teamcode.Robot;
 
 //https://rr.brott.dev/docs/v1-0/guides/centerstage-auto/
 
@@ -48,8 +48,8 @@ public class farBlueBasic extends LinearOpMode {
         IntakeSpinner = hardwareMap.get(CRServo.class, "IntakeSpinner");
 
 
-        FrontRight.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.REVERSE);
+        FrontRight.setDirection(DcMotor.Direction.REVERSE);
+        BackRight.setDirection(DcMotor.Direction.FORWARD);
         FrontLeft.setDirection(DcMotor.Direction.FORWARD);
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
 

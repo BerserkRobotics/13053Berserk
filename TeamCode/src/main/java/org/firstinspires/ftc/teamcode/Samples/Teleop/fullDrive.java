@@ -82,14 +82,14 @@ public class fullDrive extends LinearOpMode {
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        FrontRight.setDirection(DcMotor.Direction.FORWARD);
-        BackRight.setDirection(DcMotor.Direction.REVERSE);
+        FrontRight.setDirection(DcMotor.Direction.REVERSE);
+        BackRight.setDirection(DcMotor.Direction.FORWARD);
         FrontLeft.setDirection(DcMotor.Direction.FORWARD);
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
 
         IntakeRoller.setDirection(DcMotor.Direction.FORWARD);
-        ROuttakeSpinner.setDirection(DcMotor.Direction.REVERSE);
-        LOuttakeSpinner.setDirection(DcMotor.Direction.FORWARD);
+        ROuttakeSpinner.setDirection(DcMotor.Direction.FORWARD);
+        LOuttakeSpinner.setDirection(DcMotor.Direction.REVERSE);
 
         /*
         BSpinner.setDirection(CRServo.Direction.REVERSE);
@@ -134,22 +134,25 @@ public class fullDrive extends LinearOpMode {
             double strafeSpeed = gamepad1.left_stick_x;
             double speedSetter = 1;
 
-            front_right_power  = (moveSpeed - gamepad1.right_stick_x + strafeSpeed) * speedSetter;
-            front_left_power   = (moveSpeed - gamepad1.right_stick_x - strafeSpeed) * speedSetter;
+            front_right_power  = (moveSpeed - gamepad1.right_stick_x - strafeSpeed) * speedSetter;
+            front_left_power   = (moveSpeed + gamepad1.right_stick_x + strafeSpeed) * speedSetter;
             back_left_power    = (moveSpeed + gamepad1.right_stick_x - strafeSpeed) * speedSetter;
-            back_right_power   = (moveSpeed + gamepad1.right_stick_x + strafeSpeed) * speedSetter;
+            back_right_power   = (moveSpeed - gamepad1.right_stick_x + strafeSpeed) * speedSetter;
 
             FrontRight.setPower(front_right_power);
             FrontLeft.setPower(front_left_power);
             BackRight.setPower(back_right_power);
             BackLeft.setPower(back_left_power);
 
-            OuttakeSpeed += 0.000005*(-gamepad2.right_stick_y);
+
+            //TODO: try range.clip function
+            /*OuttakeSpeed += 0.000005*(-gamepad2.right_stick_y);
             if (OuttakeSpeed >= 1) {
                 OuttakeSpeed = 1;
             } else if (OuttakeSpeed < 0.25) {
                 OuttakeSpeed = 0.25;
             }
+             */
 
             /*
             if (gamepad2.y) {
@@ -184,8 +187,8 @@ public class fullDrive extends LinearOpMode {
                 ROuttakeSpinner.setPower(0);
                 LOuttakeSpinner.setPower(0);
             } else if (gamepad2.dpad_right) {
-                ROuttakeSpinner.setPower(OuttakeSpeed);
-                LOuttakeSpinner.setPower(OuttakeSpeed);
+                ROuttakeSpinner.setPower(1);
+                LOuttakeSpinner.setPower(1);
             }
 
 
