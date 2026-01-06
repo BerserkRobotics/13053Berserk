@@ -52,7 +52,7 @@ public class fullDrive extends LinearOpMode {
     private CRServo BSpinner;
     private CRServo TSpinner;
      */
-    private CRServo IntakeSpinner;
+    private CRServo middle;
 
     double OuttakeSpeed = 0.5;
 
@@ -77,15 +77,15 @@ public class fullDrive extends LinearOpMode {
         BSpinner = hardwareMap.get(CRServo.class, "BSpinner");
         TSpinner = hardwareMap.get(CRServo.class, "TSpinner");
          */
-        IntakeSpinner = hardwareMap.get(CRServo.class, "IntakeSpinner");
+        middle = hardwareMap.get(CRServo.class, "middle");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        FrontRight.setDirection(DcMotor.Direction.REVERSE);
-        BackRight.setDirection(DcMotor.Direction.FORWARD);
-        FrontLeft.setDirection(DcMotor.Direction.FORWARD);
-        BackLeft.setDirection(DcMotor.Direction.REVERSE);
+        FrontRight.setDirection(DcMotor.Direction.FORWARD);
+        BackRight.setDirection(DcMotor.Direction.REVERSE);
+        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
+        BackLeft.setDirection(DcMotor.Direction.FORWARD);
 
         IntakeRoller.setDirection(DcMotor.Direction.FORWARD);
         ROuttakeSpinner.setDirection(DcMotor.Direction.FORWARD);
@@ -95,7 +95,7 @@ public class fullDrive extends LinearOpMode {
         BSpinner.setDirection(CRServo.Direction.REVERSE);
         TSpinner.setDirection(CRServo.Direction.FORWARD);
          */
-        IntakeSpinner.setDirection(CRServo.Direction.FORWARD);
+        middle.setDirection(CRServo.Direction.FORWARD);
 
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -119,7 +119,7 @@ public class fullDrive extends LinearOpMode {
         BSpinner.setPower(0);
         TSpinner.setPower(0);
         */
-        IntakeSpinner.setPower(0);
+        middle.setPower(0);
 
 
         // Tell the driver that initialization is complete.
@@ -134,10 +134,10 @@ public class fullDrive extends LinearOpMode {
             double strafeSpeed = gamepad1.left_stick_x;
             double speedSetter = 1;
 
-            front_right_power  = (moveSpeed - gamepad1.right_stick_x - strafeSpeed) * speedSetter;
-            front_left_power   = (moveSpeed + gamepad1.right_stick_x + strafeSpeed) * speedSetter;
-            back_left_power    = (moveSpeed + gamepad1.right_stick_x - strafeSpeed) * speedSetter;
-            back_right_power   = (moveSpeed - gamepad1.right_stick_x + strafeSpeed) * speedSetter;
+            front_right_power  = (moveSpeed + gamepad1.right_stick_x - strafeSpeed) * speedSetter;
+            front_left_power   = (moveSpeed - gamepad1.right_stick_x + strafeSpeed) * speedSetter;
+            back_left_power    = (moveSpeed - gamepad1.right_stick_x - strafeSpeed) * speedSetter;
+            back_right_power   = (moveSpeed + gamepad1.right_stick_x + strafeSpeed) * speedSetter;
 
             FrontRight.setPower(front_right_power);
             FrontLeft.setPower(front_left_power);
@@ -146,13 +146,13 @@ public class fullDrive extends LinearOpMode {
 
 
             //TODO: try range.clip function
-            /*OuttakeSpeed += 0.000005*(-gamepad2.right_stick_y);
+            OuttakeSpeed += 0.000005*(-gamepad2.right_stick_y);
             if (OuttakeSpeed >= 1) {
                 OuttakeSpeed = 1;
             } else if (OuttakeSpeed < 0.25) {
                 OuttakeSpeed = 0.25;
             }
-             */
+
 
             /*
             if (gamepad2.y) {
@@ -168,11 +168,11 @@ public class fullDrive extends LinearOpMode {
              */
 
             if (gamepad2.y) {
-                IntakeSpinner.setPower(1);
+                middle.setPower(1);
             } else if (gamepad2.a) {
-                IntakeSpinner.setPower(-1);
+                middle.setPower(-1);
             } else {
-                IntakeSpinner.setPower(0);
+                middle.setPower(0);
             }
 
             if (gamepad2.dpad_up) {
@@ -187,8 +187,8 @@ public class fullDrive extends LinearOpMode {
                 ROuttakeSpinner.setPower(0);
                 LOuttakeSpinner.setPower(0);
             } else if (gamepad2.dpad_right) {
-                ROuttakeSpinner.setPower(1);
-                LOuttakeSpinner.setPower(1);
+                ROuttakeSpinner.setPower(OuttakeSpeed);
+                LOuttakeSpinner.setPower(OuttakeSpeed);
             }
 
 
