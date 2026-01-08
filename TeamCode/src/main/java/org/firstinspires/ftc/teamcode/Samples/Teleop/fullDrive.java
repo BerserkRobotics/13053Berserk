@@ -145,13 +145,14 @@ public class fullDrive extends LinearOpMode {
             BackLeft.setPower(back_left_power);
 
 
-            //TODO: try range.clip function
+            /*TODO: try range.clip function
             OuttakeSpeed += 0.000005*(-gamepad2.right_stick_y);
             if (OuttakeSpeed >= 1) {
                 OuttakeSpeed = 1;
             } else if (OuttakeSpeed < 0.25) {
                 OuttakeSpeed = 0.25;
             }
+             */
 
 
             /*
@@ -187,8 +188,8 @@ public class fullDrive extends LinearOpMode {
                 ROuttakeSpinner.setPower(0);
                 LOuttakeSpinner.setPower(0);
             } else if (gamepad2.dpad_right) {
-                ROuttakeSpinner.setPower(OuttakeSpeed);
-                LOuttakeSpinner.setPower(OuttakeSpeed);
+                ROuttakeSpinner.setPower(.6);
+                LOuttakeSpinner.setPower(.6);
             }
 
 
