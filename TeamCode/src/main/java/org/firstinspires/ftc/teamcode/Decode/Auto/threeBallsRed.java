@@ -4,15 +4,18 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
 @Autonomous(name = "threeBallsRed", group = "a", preselectTeleOp = "fullDrive")
-public class oneBallAutoRight extends LinearOpMode {
+public class threeBallsRed extends LinearOpMode {
 
     private DcMotor FrontLeft;
     private DcMotor FrontRight;
     private DcMotor BackLeft;
     private DcMotor BackRight;
+
+    private DcMotor IntakeRoller;
 
     private DcMotor ROuttakeSpinner;
     private DcMotor LOuttakeSpinner;
@@ -26,6 +29,8 @@ public class oneBallAutoRight extends LinearOpMode {
         FrontLeft = hardwareMap.get(DcMotor.class, "leftFront");
         BackLeft = hardwareMap.get(DcMotor.class, "leftBack");
 
+        IntakeRoller = hardwareMap.get(DcMotor.class, "IntakeRoller");
+
         ROuttakeSpinner = hardwareMap.get(DcMotor.class, "ROuttakeSpinner");
         LOuttakeSpinner = hardwareMap.get(DcMotor.class, "LOuttakeSpinner");
 
@@ -36,6 +41,8 @@ public class oneBallAutoRight extends LinearOpMode {
         BackRight.setDirection(DcMotor.Direction.FORWARD);
         FrontLeft.setDirection(DcMotor.Direction.FORWARD);
         BackLeft.setDirection(DcMotor.Direction.REVERSE);
+
+        IntakeRoller.setDirection(DcMotor.Direction.REVERSE);
 
         ROuttakeSpinner.setDirection(DcMotor.Direction.FORWARD);
         LOuttakeSpinner.setDirection(DcMotor.Direction.REVERSE);
@@ -48,6 +55,8 @@ public class oneBallAutoRight extends LinearOpMode {
         FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        IntakeRoller.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         ROuttakeSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LOuttakeSpinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -56,6 +65,8 @@ public class oneBallAutoRight extends LinearOpMode {
         FrontLeft.setPower(0);
         FrontRight.setPower(0);
 
+        IntakeRoller.setPower(0);
+
         waitForStart();
         if (opModeIsActive()) {
 
@@ -63,7 +74,7 @@ public class oneBallAutoRight extends LinearOpMode {
             BackRight.setPower(-0.5);
             FrontLeft.setPower(-0.5);
             FrontRight.setPower(-0.5);
-            sleep(250);
+            sleep(300);
 
             BackLeft.setPower(0.5);
             BackRight.setPower(-0.5);
@@ -75,16 +86,17 @@ public class oneBallAutoRight extends LinearOpMode {
             BackRight.setPower(0);
             FrontLeft.setPower(0);
             FrontRight.setPower(0);
-            ROuttakeSpinner.setPower(0.7);
-            LOuttakeSpinner.setPower(0.7);
-            sleep(3000);
 
+            IntakeRoller.setPower(1);
             middle.setPower(-1);
-            sleep(2000);
+            ROuttakeSpinner.setPower(0.75);
+            LOuttakeSpinner.setPower(0.75);
+            sleep(15000);
 
             ROuttakeSpinner.setPower(0);
             LOuttakeSpinner.setPower(0);
             middle.setPower(0);
+            IntakeRoller.setPower(0);
             BackLeft.setPower(0.5);
             BackRight.setPower(-0.5);
             FrontLeft.setPower(-0.5);

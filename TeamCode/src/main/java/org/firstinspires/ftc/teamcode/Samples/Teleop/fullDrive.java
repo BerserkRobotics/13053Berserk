@@ -54,7 +54,7 @@ public class fullDrive extends LinearOpMode {
      */
     private CRServo middle;
 
-    double OuttakeSpeed = 0.5;
+    double OuttakeSpeed = 0.578;
 
 
     @Override
@@ -115,10 +115,7 @@ public class fullDrive extends LinearOpMode {
         IntakeRoller.setPower(0);
         LOuttakeSpinner.setPower(0);
         ROuttakeSpinner.setPower(0);
-        /*
-        BSpinner.setPower(0);
-        TSpinner.setPower(0);
-        */
+
         middle.setPower(0);
 
 
