@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@Autonomous(name = "threeBallsRed", group = "a", preselectTeleOp = "fullDrive")
+@Autonomous(name = "oneBallAutoRight", group = "blue", preselectTeleOp = "fullDrive")
 public class oneBallAutoRight extends LinearOpMode {
 
     private DcMotor FrontLeft;

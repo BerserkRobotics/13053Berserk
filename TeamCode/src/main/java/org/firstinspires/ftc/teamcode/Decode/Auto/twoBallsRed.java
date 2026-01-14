@@ -4,11 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 
-@Autonomous(name = "threeBallsRed", group = "a", preselectTeleOp = "fullDrive")
-public class threeBallsRed extends LinearOpMode {
+@Autonomous(name = "twoBallsRed", group = "a", preselectTeleOp = "fullDrive")
+public class twoBallsRed extends LinearOpMode {
 
     private DcMotor FrontLeft;
     private DcMotor FrontRight;
@@ -65,10 +64,13 @@ public class threeBallsRed extends LinearOpMode {
         FrontLeft.setPower(0);
         FrontRight.setPower(0);
 
-        IntakeRoller.setPower(0);
+        //IntakeRoller.setPower(0);
 
         waitForStart();
         if (opModeIsActive()) {
+
+            ROuttakeSpinner.setPower(0.7);
+            LOuttakeSpinner.setPower(0.7);
 
             BackLeft.setPower(-0.5);
             BackRight.setPower(-0.5);
@@ -80,7 +82,7 @@ public class threeBallsRed extends LinearOpMode {
             BackRight.setPower(-0.5);
             FrontLeft.setPower(0.5);
             FrontRight.setPower(-0.5);
-            sleep(200);
+            sleep(275);
 
             BackLeft.setPower(0);
             BackRight.setPower(0);
@@ -89,8 +91,6 @@ public class threeBallsRed extends LinearOpMode {
 
             IntakeRoller.setPower(1);
             middle.setPower(-1);
-            ROuttakeSpinner.setPower(0.75);
-            LOuttakeSpinner.setPower(0.75);
             sleep(15000);
 
             ROuttakeSpinner.setPower(0);
