@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@Autonomous(name = "twoBallsRed", group = "a", preselectTeleOp = "fullDrive")
-public class twoBallsRed extends LinearOpMode {
+@Autonomous(name = "twoFarRed", group = "a", preselectTeleOp = "fullDrive")
+public class twoFarRed extends LinearOpMode {
 
     private DcMotor FrontLeft;
     private DcMotor FrontRight;
