@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode.Samples.Teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 // BASIC DRIVE
 
@@ -39,6 +40,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class LimelightTesting extends LinearOpMode {
     private DcMotor Left;
     private DcMotor Right;
+    private DcMotor limelightMotor;
 
 
     @Override
@@ -47,19 +49,20 @@ public class LimelightTesting extends LinearOpMode {
 
         Left = hardwareMap.get(DcMotor.class, "Left");
         Right = hardwareMap.get(DcMotor.class, "Right");
+        limelightMotor = hardwareMap.get(DcMotor.class, "limelightMotor");
 
         Right.setDirection(DcMotor.Direction.FORWARD);
         Left.setDirection(DcMotor.Direction.FORWARD);
+        limelightMotor.setDirection(DcMotor.Direction.FORWARD);
 
         Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        limelightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         double left_power = 0;
         double right_power = 0;
+        limelightMotor.setPower(0);
 
-
-
-        // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
 
 
