@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@Autonomous(name = "twoFarRed", group = "a", preselectTeleOp = "fullDrive")
+@Autonomous(name = "twoCloseRed", group = "a", preselectTeleOp = "fullDrive")
 public class twoCloseRed extends LinearOpMode {
 
     private DcMotor FrontLeft;
@@ -69,20 +69,14 @@ public class twoCloseRed extends LinearOpMode {
         waitForStart();
         if (opModeIsActive()) {
 
-            ROuttakeSpinner.setPower(0.7);
-            LOuttakeSpinner.setPower(0.7);
-
-            BackLeft.setPower(-0.5);
-            BackRight.setPower(-0.5);
-            FrontLeft.setPower(-0.5);
-            FrontRight.setPower(-0.5);
-            sleep(300);
+            ROuttakeSpinner.setPower(0.6);
+            LOuttakeSpinner.setPower(0.6);
 
             BackLeft.setPower(0.5);
-            BackRight.setPower(-0.5);
+            BackRight.setPower(0.5);
             FrontLeft.setPower(0.5);
-            FrontRight.setPower(-0.5);
-            sleep(275);
+            FrontRight.setPower(0.5);
+            sleep(1000);
 
             BackLeft.setPower(0);
             BackRight.setPower(0);
@@ -97,18 +91,12 @@ public class twoCloseRed extends LinearOpMode {
             LOuttakeSpinner.setPower(0);
             middle.setPower(0);
             IntakeRoller.setPower(0);
+
             BackLeft.setPower(0.5);
             BackRight.setPower(-0.5);
             FrontLeft.setPower(-0.5);
             FrontRight.setPower(0.5);
-            sleep(2000);
-
-            BackLeft.setPower(0.5);
-            BackRight.setPower(0.5);
-            FrontLeft.setPower(0.5);
-            FrontRight.setPower(0.5);
-            sleep(1000);
-
+            sleep(1500);
         }
     }
 }

@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@Autonomous(name = "twoBFarBlue", group = "a", preselectTeleOp = "fullDrive")
+@Autonomous(name = "twoFarBlue", group = "a", preselectTeleOp = "fullDrive")
 public class twoFarBlue extends LinearOpMode {
 
     private DcMotor FrontLeft;
@@ -64,25 +64,27 @@ public class twoFarBlue extends LinearOpMode {
         FrontLeft.setPower(0);
         FrontRight.setPower(0);
 
-        //IntakeRoller.setPower(0);
+        IntakeRoller.setPower(0);
+        ROuttakeSpinner.setPower(0);
+        LOuttakeSpinner.setPower(0);
 
         waitForStart();
         if (opModeIsActive()) {
 
-            ROuttakeSpinner.setPower(0.7);
-            LOuttakeSpinner.setPower(0.7);
+            ROuttakeSpinner.setPower(0.67);
+            LOuttakeSpinner.setPower(0.672);
 
             BackLeft.setPower(-0.5);
             BackRight.setPower(-0.5);
             FrontLeft.setPower(-0.5);
             FrontRight.setPower(-0.5);
-            sleep(300);
+            sleep(450);
 
             BackLeft.setPower(-0.5);
             BackRight.setPower(0.5);
             FrontLeft.setPower(-0.5);
             FrontRight.setPower(0.5);
-            sleep(275);
+            sleep(85);
 
             BackLeft.setPower(0);
             BackRight.setPower(0);

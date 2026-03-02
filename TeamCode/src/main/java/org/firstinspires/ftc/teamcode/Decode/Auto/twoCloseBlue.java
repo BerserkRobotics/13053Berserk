@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@Autonomous(name = "twoFarRed", group = "a", preselectTeleOp = "fullDrive")
-public class twoFarRed extends LinearOpMode {
+@Autonomous(name = "twoCloseBlue", group = "a", preselectTeleOp = "fullDrive")
+public class twoCloseBlue extends LinearOpMode {
 
     private DcMotor FrontLeft;
     private DcMotor FrontRight;
@@ -69,49 +69,34 @@ public class twoFarRed extends LinearOpMode {
         waitForStart();
         if (opModeIsActive()) {
 
-            ROuttakeSpinner.setPower(0.6);
-            LOuttakeSpinner.setPower(0.602);
-
-            BackLeft.setPower(-0.5);
-            BackRight.setPower(-0.5);
-            FrontLeft.setPower(-0.5);
-            FrontRight.setPower(-0.5);
-            sleep(2500);
+            ROuttakeSpinner.setPower(0.475);
+            LOuttakeSpinner.setPower(0.475);
 
             BackLeft.setPower(0.5);
-            BackRight.setPower(-0.5);
+            BackRight.setPower(0.5);
             FrontLeft.setPower(0.5);
-            FrontRight.setPower(-0.5);
-            sleep(550);
+            FrontRight.setPower(0.5);
+            sleep(800);
 
             BackLeft.setPower(0);
             BackRight.setPower(0);
             FrontLeft.setPower(0);
             FrontRight.setPower(0);
 
-            middle.setPower(-1);
             IntakeRoller.setPower(1);
+            middle.setPower(-1);
             sleep(15000);
 
             ROuttakeSpinner.setPower(0);
             LOuttakeSpinner.setPower(0);
             middle.setPower(0);
             IntakeRoller.setPower(0);
-            BackLeft.setPower(0.5);
-            BackRight.setPower(-0.5);
-            FrontLeft.setPower(-0.5);
-            FrontRight.setPower(0.5);
-            sleep(2000);
 
-            /*
-            BackLeft.setPower(0.5);
+            BackLeft.setPower(-0.5);
             BackRight.setPower(0.5);
             FrontLeft.setPower(0.5);
-            FrontRight.setPower(0.5);
-            sleep(1000);
-
-             */
-
+            FrontRight.setPower(-0.5);
+            sleep(1200);
         }
     }
 }
