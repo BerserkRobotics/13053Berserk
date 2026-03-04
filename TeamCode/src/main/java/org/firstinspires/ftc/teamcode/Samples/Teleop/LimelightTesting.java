@@ -52,12 +52,14 @@ public class LimelightTesting extends LinearOpMode {
         limelightMotor = hardwareMap.get(DcMotor.class, "limelightMotor");
 
         Right.setDirection(DcMotor.Direction.FORWARD);
-        Left.setDirection(DcMotor.Direction.FORWARD);
+        Left.setDirection(DcMotor.Direction.REVERSE);
         limelightMotor.setDirection(DcMotor.Direction.FORWARD);
 
         Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         limelightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        limelightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         double left_power = 0;
         double right_power = 0;
@@ -79,6 +81,11 @@ public class LimelightTesting extends LinearOpMode {
 
             Right.setPower(right_power);
             Left.setPower(left_power);
+
+            if (gamepad1.dpad_right) {
+                limelightMotor.setTargetPosition(1);
+                limelightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
 
             telemetry.addData("Status", "Running");
             telemetry.update();
