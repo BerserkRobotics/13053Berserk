@@ -1,93 +1,113 @@
-/* Copyright (c) 2017 FIRST. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided that
- * the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list
- * of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice, this
- * list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution.
- *
- * Neither the name of FIRST nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
- * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 package org.firstinspires.ftc.teamcode.Samples.Teleop;
 
+import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
-// BASIC DRIVE
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name = "LimelightTesting")
 public class LimelightTesting extends LinearOpMode {
+
     private DcMotor Left;
     private DcMotor Right;
     private DcMotor limelightMotor;
-
+    private Limelight3A limelight;
+    private DigitalChannel limitSwitch;
 
     @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
 
+        // ======= HARDWARE SETUP =======
         Left = hardwareMap.get(DcMotor.class, "Left");
         Right = hardwareMap.get(DcMotor.class, "Right");
         limelightMotor = hardwareMap.get(DcMotor.class, "limelightMotor");
+        limitSwitch = hardwareMap.get(DigitalChannel.class, "limitSwitch");
+        limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
         Right.setDirection(DcMotor.Direction.FORWARD);
         Left.setDirection(DcMotor.Direction.REVERSE);
-        limelightMotor.setDirection(DcMotor.Direction.FORWARD);
-
         Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        limelightMotor.setDirection(DcMotor.Direction.FORWARD);
         limelightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        limelightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // 🔥 Encoder setup
+        limelightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        limelightMotor.setTargetPosition(0);
+        limelightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        double left_power = 0;
-        double right_power = 0;
-        limelightMotor.setPower(0);
+        limitSwitch.setMode(DigitalChannel.Mode.INPUT);
 
-        telemetry.addData("Status", "Initialized");
-
+        limelight.pipelineSwitch(0);
+        limelight.start();
 
         waitForStart();
 
+        // ======= CONTROL PARAMETERS =======
+        double ticksPerDegree = 1;   // TODO: TUNE THIS
+        int minPosition = -1000;      // safety bounds
+        int maxPosition = 1000;
+        double speed = 0.7;
+
         while (opModeIsActive()) {
 
-            double moveSpeed   = -gamepad1.left_stick_y;
-            double strafeSpeed = gamepad1.left_stick_x;
-            double speedSetter = 1;
-
-            right_power  = (moveSpeed - gamepad1.right_stick_x - strafeSpeed) * speedSetter;
-            left_power = (moveSpeed - gamepad1.right_stick_x + strafeSpeed) * speedSetter;
-
-            Right.setPower(right_power);
-            Left.setPower(left_power);
-
-            if (gamepad1.dpad_right) {
-                limelightMotor.setTargetPosition(1);
+            // ======= LIMIT SWITCH HOMING =======
+            if (!limitSwitch.getState()) { // pressed
+                limelightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                limelightMotor.setTargetPosition(0);
                 limelightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             }
 
-            telemetry.addData("Status", "Running");
+            // ======= GET LIMELIGHT DATA =======
+            LLResult result = limelight.getLatestResult();
+            boolean hasTarget = result != null && result.isValid();
+            double tx = hasTarget ? result.getTx() : 0;
+
+            int deltaTicks = 0;
+            if (hasTarget && Math.abs(tx) > 1) {
+
+                int currentPos = limelightMotor.getCurrentPosition();
+
+                // Convert angle error → ticks
+                deltaTicks = (int) (tx * ticksPerDegree);
+
+                int targetPos = currentPos + deltaTicks;
+
+                // Clamp to safe range
+                targetPos = Range.clip(targetPos, minPosition, maxPosition);
+
+                limelightMotor.setTargetPosition(targetPos);
+                limelightMotor.setPower(speed);
+
+            } else {
+                // Hold position when aligned
+                limelightMotor.setPower(0.1); // small holding power
+            }
+
+            // ======= ROBOT DRIVE =======
+            double leftPower = -gamepad1.left_stick_y;
+            double rightPower = -gamepad1.right_stick_y;
+
+            if (hasTarget) {
+                leftPower *= 0.5;
+                rightPower *= 0.5;
+            }
+
+            Left.setPower(leftPower);
+            Right.setPower(rightPower);
+
+            // ======= TELEMETRY =======
+            telemetry.addData("Has Target", hasTarget);
+            telemetry.addData("Tx", tx);
+            telemetry.addData("Target Pos", limelightMotor.getTargetPosition());
+            telemetry.addData("Current Pos", limelightMotor.getCurrentPosition());
+            telemetry.addData("DeltaTicks", deltaTicks);
+            telemetry.addData("Left Power", leftPower);
+            telemetry.addData("Right Power", rightPower);
             telemetry.update();
         }
     }
