@@ -39,23 +39,45 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "fullDrive")
 public class testDrive extends LinearOpMode {
-    private DcMotor Turret;
 
+    private DcMotor FrontLeft;
+    private DcMotor FrontRight;
+    private DcMotor BackLeft;
+    private DcMotor BackRight;
+
+    private DcMotor Turret;
 
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
 
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
+        FrontRight = hardwareMap.get(DcMotor.class, "rightFront");
+        BackRight = hardwareMap.get(DcMotor.class, "rightBack");
+        FrontLeft = hardwareMap.get(DcMotor.class, "leftFront");
+        BackLeft = hardwareMap.get(DcMotor.class, "leftBack");
+
         Turret = hardwareMap.get(DcMotor.class, "Turret");
 
+        FrontRight.setDirection(DcMotor.Direction.FORWARD);
+        BackRight.setDirection(DcMotor.Direction.REVERSE);
+        FrontLeft.setDirection(DcMotor.Direction.REVERSE);
+        BackLeft.setDirection(DcMotor.Direction.FORWARD);
+
         Turret.setDirection(DcMotor.Direction.FORWARD);
+
+        FrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         Turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         Turret.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        double front_left_power  = 0;
+        double front_right_power = 0;
+        double back_left_power   = 0;
+        double back_right_power  = 0;
 
         Turret.setPower(0);
 
@@ -67,6 +89,21 @@ public class testDrive extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+
+            double moveSpeed   = -gamepad1.left_stick_y;
+            double strafeSpeed = gamepad1.left_stick_x;
+            double speedSetter = 1;
+
+            front_right_power  = (moveSpeed + gamepad1.right_stick_x - strafeSpeed) * speedSetter;
+            front_left_power   = (moveSpeed - gamepad1.right_stick_x + strafeSpeed) * speedSetter;
+            back_left_power    = (moveSpeed - gamepad1.right_stick_x - strafeSpeed) * speedSetter;
+            back_right_power   = (moveSpeed + gamepad1.right_stick_x + strafeSpeed) * speedSetter;
+
+            FrontRight.setPower(front_right_power);
+            FrontLeft.setPower(front_left_power);
+            BackRight.setPower(back_right_power);
+            BackLeft.setPower(back_left_power);
+
 
             if (gamepad2.dpad_up) {
                 Turret.setTargetPosition(200);
